@@ -1,50 +1,34 @@
 class Solution {
     public int garbageCollection(String[] garbage, int[] travel) 
     {
-        //int count=0;
-        int i,j,total=0,temp,count=0;
-        char ar[]={'G','P','M'};
-        int time[]=new int[garbage.length];
-        for(i=0;i<3;i++)
+        int n=garbage.length;
+        int m=travel.length;
+        int total=0;
+        int i,k;
+        int col[]=new int[3];
+        int time[]=new int[n];
+        for(i=0;i<n;i++)
         {
-            count=0;
-            if(garbage[0].contains(Character.toString(ar[i])))
+            k=garbage[i].length();
+            total=total+k;
+            if(i>0)
             {
-                for(j=0;j<garbage[0].length();j++)
-                {
-                    if(garbage[0].charAt(j)==(ar[i]))
-                    {
-                        count++;
-                    }
-                }
+                time[i]=time[i-1]+travel[i-1];
             }
-            temp=0;
-            for(j=1;j<garbage.length;j++)
+            if(garbage[i].contains("G"))
             {
-                if(time[j]==0)
-                {
-                    time[j]=time[j-1]+travel[j-1];
-                }
-                if(garbage[j].contains(Character.toString(ar[i])))
-                {
-                    temp=time[j];
-                    for(;;)
-                    {
-                        int k=garbage[j].indexOf(ar[i]);
-                        if(k==-1)
-                        {
-                            break;
-                        }
-                        else
-                        {
-                            count++;
-                            garbage[j]=garbage[j].substring(0,k)+"."+garbage[j].substring(k+1);
-                        }
-                    }
-                }
+                col[0]=i;
             }
-            total=total+temp+count;
+            if(garbage[i].contains("M"))
+            {
+                col[1]=i;
+            }
+            if(garbage[i].contains("P"))
+            {
+                col[2]=i;
+            }
         }
+        total=total+time[col[0]]+time[col[1]]+time[col[2]];
         return total;
     }
 }
