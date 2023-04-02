@@ -1,13 +1,12 @@
 class Solution {
     public int garbageCollection(String[] garbage, int[] travel) 
     {
-        int n=garbage.length;
-        int m=travel.length;
+        //int n=garbage.length;
         int total=0;
         int i,k;
         int col[]=new int[3];
-        int time[]=new int[n];
-        for(i=0;i<n;i++)
+        int time[]=new int[garbage.length];
+        for(i=0;i<garbage.length;i++)
         {
             k=garbage[i].length();
             total=total+k;
