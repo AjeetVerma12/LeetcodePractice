@@ -3,18 +3,14 @@ class Solution {
     {
         int l=accounts.length;
         int wealth=0,max=0;
-        int i,j;
-        for(i=0;i<l;i++)
+        for(var i:accounts)
         {
             wealth=0;
-            for(j=0;j<accounts[i].length;j++)
+            for(int j:i)
             {
-                wealth=wealth+accounts[i][j];
+                wealth=wealth+j;
             }
-            if(wealth>max)
-            {
-                max=wealth;
-            }
+            max=Math.max(max,wealth);
         }
         return max;
     }
