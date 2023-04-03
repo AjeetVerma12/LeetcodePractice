@@ -2,21 +2,14 @@ class Solution {
     public int numRescueBoats(int[] people, int limit) 
     {
         Arrays.sort(people);
-        int start=0,end=people.length-1;
         int count=0;
-        for(;start<=end;)
+        for (int i=0,j=people.length-1;i<=j;--j) 
         {
-            if(people[start]+people[end]<=limit)
+            if (people[i] + people[j] <= limit)
             {
-                count++;
-                start++;
-                end--;
+                ++i;
             }
-            else if(people[start]+people[end]>limit)
-            {
-                count++;
-                end--;
-            }
+            ++count;
         }
         return count;
     }
