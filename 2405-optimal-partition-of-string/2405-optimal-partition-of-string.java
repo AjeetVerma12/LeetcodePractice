@@ -1,19 +1,16 @@
 class Solution {
     public int partitionString(String s) 
     {
-        int l=s.length();
-        HashSet<Character> hs=new HashSet<Character>();
-        int count=0;
-        for(int i=0;i<l;i++)
-        {
-            if(hs.contains(s.charAt(i)))
-            {
-                count++;
-                hs.clear();
+        int v = 0;
+        int ans = 1;
+        for (char c : s.toCharArray()) {
+            int i = c - 'a';
+            if (((v >> i) & 1) == 1) {
+                v = 0;
+                ++ans;
             }
-            hs.add(s.charAt(i));
+            v |= 1 << i;
         }
-        count++;
-        return count;
+        return ans;
     }
 }
