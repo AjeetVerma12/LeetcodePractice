@@ -1,21 +1,18 @@
 class Solution {
     public int[] processQueries(int[] queries, int m) 
     {
-        List<Integer> perm=new LinkedList<>();
-        int n=queries.length;
-        int i,j;
-        for(i=1;i<=m;i++)
-        {
-            perm.add(i);
+        List<Integer> p = new LinkedList<>();
+        for (int i = 1; i <= m; ++i) {
+            p.add(i);
         }
-        int fin[]=new int[n];
-        for(i=0;i<n;i++)
-        {
-            j=perm.indexOf(queries[i]);
-            fin[i]=j;
-            perm.remove(j);
-            perm.add(0,queries[i]);
+        int[] ans = new int[queries.length];
+        int i = 0;
+        for (int v : queries) {
+            int j = p.indexOf(v);
+            ans[i++] = j;
+            p.remove(j);
+            p.add(0, v);
         }
-        return fin;
+        return ans;
     }
 }
