@@ -1,27 +1,64 @@
 class Solution {
-  public void setZeroes(int[][] matrix) {
-    int R = matrix.length;
-    int C = matrix[0].length;
-    Set<Integer> rows = new HashSet<Integer>();
-    Set<Integer> cols = new HashSet<Integer>();
-
-    // Essentially, we mark the rows and columns that are to be made zero
-    for (int i = 0; i < R; i++) {
-      for (int j = 0; j < C; j++) {
-        if (matrix[i][j] == 0) {
-          rows.add(i);
-          cols.add(j);
+    public void setZeroes(int[][] matrix) 
+    {
+        int n=matrix.length;
+        int m=matrix[0].length;
+        int i,j,row=0,col=0;
+        for(i=0;i<n;i++)
+        {
+            for(j=0;j<m;j++)
+            {
+                if(matrix[i][j]==0)
+                {
+                    if(i==0)
+                    {
+                        row=1;
+                    }
+                    if(j==0)
+                    {
+                        col=1;
+                    }
+                    matrix[0][j]=0;
+                    matrix[i][0]=0;
+                }
+            }
         }
-      }
-    }
-
-    // Iterate over the array once again and using the rows and cols sets, update the elements.
-    for (int i = 0; i < R; i++) {
-      for (int j = 0; j < C; j++) {
-        if (rows.contains(i) || cols.contains(j)) {
-          matrix[i][j] = 0;
+        for(i=1;i<n;i++)
+        {
+            if(matrix[i][0]==0)
+            {
+                for(j=1;j<m;j++)
+                {
+                    matrix[i][j]=0;
+                }
+            }
         }
-      }
+        for(i=1;i<m;i++)
+        {
+            if(matrix[0][i]==0)
+            {
+                for(j=1;j<n;j++)
+                {
+                    matrix[j][i]=0;
+                }
+            }
+        }
+        if(matrix[0][0]==0)
+        {
+            if(col==1)
+            {
+                for(i=0;i<n;i++)
+                {
+                    matrix[i][0]=0;
+                }
+            }
+            if(row==1)
+            {
+                for(j=0;j<m;j++)
+                {
+                    matrix[0][j]=0;
+                }
+            }
+        }
     }
-  }
 }
