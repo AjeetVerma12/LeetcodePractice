@@ -1,51 +1,29 @@
 class Solution {
-    public void nextPermutation(int[] nums) 
-    {
-        int n=nums.length;
-        int i,breakPoint=-1;
-        for(i=0;i<n-1;i++)
-        {
-            if(nums[i]<nums[i+1])
-            {
-                breakPoint=i;
+    public void nextPermutation(int[] nums) {
+        int n = nums.length;
+        int i = n - 2;
+        for (; i >= 0; --i) {
+            if (nums[i] < nums[i + 1]) {
+                break;
             }
         }
-        if(breakPoint==-1)
-        {
-            Arrays.sort(nums);
-        }
-        else
-        {
-            int nextbig=nums[breakPoint+1];
-            int index=breakPoint+1,j;
-            for(i=breakPoint+1;i<n;i++)
-            {
-                if(nums[i]>nums[breakPoint])
-                {
-                    if(nums[i]<nextbig)
-                    {
-                        nextbig=nums[i];
-                        index=i;
-                    }
-                }                    
-            }
-            int temp=nums[index];
-            nums[index]=nums[breakPoint];
-            nums[breakPoint]=temp;
-            int flag=0;
-            for(i=breakPoint+1;i<n-1;i++)
-            {
-                for(j=breakPoint+1;j<n-flag-1;j++)
-                {
-                    if(nums[j]>nums[j+1])
-                    {
-                        temp=nums[j];
-                        nums[j]=nums[j+1];
-                        nums[j+1]=temp;
-                    }
+        if (i >= 0) {
+            for (int j = n - 1; j > i; --j) {
+                if (nums[j] > nums[i]) {
+                    swap(nums, i, j);
+                    break;
                 }
-                flag++;
             }
         }
+
+        for (int j = i + 1, k = n - 1; j < k; ++j, --k) {
+            swap(nums, j, k);
+        }
+    }
+
+    private void swap(int[] nums, int i, int j) {
+        int t = nums[j];
+        nums[j] = nums[i];
+        nums[i] = t;
     }
 }
