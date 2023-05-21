@@ -34,8 +34,8 @@ public class Main {
 
 class Solution {
     int print2largest(int arr[], int n) {
-        int max1=Integer.MIN_VALUE;
-        int max2=Integer.MIN_VALUE;
+        int max1=arr[0];
+        int max2=-1;
         int i;
         for(i=0;i<n;i++)
         {
@@ -48,10 +48,6 @@ class Solution {
             {
                 max2=arr[i];
             }
-        }
-        if(max2==Integer.MIN_VALUE)
-        {
-            max2=-1;
         }
         return max2;
     }
