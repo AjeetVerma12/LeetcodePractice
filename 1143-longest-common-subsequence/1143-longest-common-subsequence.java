@@ -23,8 +23,6 @@ class Solution {
                 }
             }
         }
-        int size=ar[l1][l2];
-        int flag=size;
-        return flag;
+        return ar[l1][l2];
     }
 }
