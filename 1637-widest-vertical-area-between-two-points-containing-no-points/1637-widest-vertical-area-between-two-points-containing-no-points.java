@@ -1,59 +1,41 @@
 class Solution {
     
-    public int partition(List<Integer> xPoint, int low, int high) 
-    {
-        int pivot = xPoint.get(low);
-        int i = low;
-        int j = high;
-        int temp;
-        for (; i < j;) 
-        {
-            for (; xPoint.get(i) <= pivot && i <= high - 1;) 
-            {
-                i++;
-            }
-            for (; xPoint.get(j) > pivot && j > low;) 
-            {
-                j--;
-            }
-            if (i < j) 
-            {
-                temp = xPoint.get(i);
-                xPoint.set(i, xPoint.get(j));
-                xPoint.set(j, temp);
-            }
-        }
-        temp = xPoint.get(low);
-        xPoint.set(low, xPoint.get(j));
-        xPoint.set(j, temp);
-        return j;
-    }
     
-    public void sort(List<Integer> xPoint, int low, int high) {
-        if (low < high) {
-            int partitionIndex = partition(xPoint, low, high);
-            sort(xPoint, low, partitionIndex - 1);
-            sort(xPoint, partitionIndex + 1, high);
-        }
-    }
     
     public int maxWidthOfVerticalArea(int[][] points) 
     {
-        List<Integer> xPoint=new ArrayList<>();
-        int n=points.length;
-        int i;
-        for(i=0;i<n;i++)
-        {
-            xPoint.add(points[i][0]);
+        int n = points.length;
+        int[] nums = new int[n];
+        for (int i = 0; i < n; ++i) {
+            nums[i] = points[i][0];
         }
-        sort(xPoint,0,n-1);
-        System.out.println(Arrays.toString(xPoint.toArray()));
-        int max=0,temp;
-        for(i=1;i<n;i++)
-        {
-            temp=xPoint.get(i)-xPoint.get(i-1);
-            max=Math.max(max,temp);
+        final int inf = 1 << 30;
+        int mi = inf, mx = -inf;
+        for (int v : nums) {
+            mi = Math.min(mi, v);
+            mx = Math.max(mx, v);
         }
-        return max;
+        int bucketSize = Math.max(1, (mx - mi) / (n - 1));
+        int bucketCount = (mx - mi) / bucketSize + 1;
+        int[][] buckets = new int[bucketCount][2];
+        for (var bucket : buckets) {
+            bucket[0] = inf;
+            bucket[1] = -inf;
+        }
+        for (int v : nums) {
+            int i = (v - mi) / bucketSize;
+            buckets[i][0] = Math.min(buckets[i][0], v);
+            buckets[i][1] = Math.max(buckets[i][1], v);
+        }
+        int prev = inf;
+        int ans = 0;
+        for (var bucket : buckets) {
+            if (bucket[0] > bucket[1]) {
+                continue;
+            }
+            ans = Math.max(ans, bucket[0] - prev);
+            prev = bucket[1];
+        }
+        return ans;
     }
 }
