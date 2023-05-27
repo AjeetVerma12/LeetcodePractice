@@ -8,9 +8,6 @@ class Solution {
             ar[count++]=i%10;
         }
         Arrays.sort(ar);
-        // int num1= (10*(ar[0]))+ar[2];
-        // int num2= (10*(ar[1]))+ar[3];
-        // return ((10*(ar[0]+ar[1]))+ar[2]+ar[3]);
-        return (10*(ar[0]))+ar[2]+(10*(ar[1]))+ar[3];
+        return ((10*(ar[0]+ar[1]))+ar[2]+ar[3]);
     }
 }
