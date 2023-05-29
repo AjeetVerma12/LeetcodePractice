@@ -1,40 +1,23 @@
 class Solution {
     public String convert(String s, int numRows) 
     {
-        int l=s.length();
-        String ar[]=new String[numRows];
-        Arrays.fill(ar,"");
-        int i,rowNum=0;
-        boolean down=true;
-        if(numRows==1)
-        {
+         if (numRows == 1) {
             return s;
         }
-        for(i=0;i<l;i++)
-        {
-            ar[rowNum]=ar[rowNum]+s.charAt(i);
-            if(down)
-            {
-                rowNum++;
-            }
-            else if(!down)
-            {
-                rowNum--;
-            }
-            if(rowNum==numRows-1)
-            {
-                down=false;
-            }
-            else if(rowNum==0)
-            {
-                down=true;
+        StringBuilder ans = new StringBuilder();
+        int group = 2 * numRows - 2;
+        for (int i = 1; i <= numRows; i++) {
+            int interval = i == numRows ? group : 2 * numRows - 2 * i;
+            int idx = i - 1;
+            while (idx < s.length()) {
+                ans.append(s.charAt(idx));
+                idx += interval;
+                interval = group - interval;
+                if (interval == 0) {
+                    interval = group;
+                }
             }
         }
-        String str="";
-        for(i=0;i<numRows;i++)
-        {
-            str=str+ar[i];
-        }
-        return str;
+        return ans.toString();
     }
 }
