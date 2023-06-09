@@ -1,22 +1,16 @@
 class Solution {
     public int[][] flipAndInvertImage(int[][] image)
     {
-        int n=image.length;
-        int i,j,temp;
-        for(i=0;i<n;i++)
-        {
-            for(j=0;j<(n+1)/2;j++)
-            {
-                temp=image[i][j];
-                image[i][j]=image[i][n-j-1];
-                image[i][n-j-1]=temp;
+        for (var row : image) {
+            int i = 0, j = row.length - 1;
+            for (; i < j; ++i, --j) {
+                if (row[i] == row[j]) {
+                    row[i] ^= 1;
+                    row[j] ^= 1;
+                }
             }
-        }
-        for(i=0;i<n;i++)
-        {
-            for(j=0;j<n;j++)
-            {
-                image[i][j]^=1;
+            if (i == j) {
+                row[i] ^= 1;
             }
         }
         return image;
