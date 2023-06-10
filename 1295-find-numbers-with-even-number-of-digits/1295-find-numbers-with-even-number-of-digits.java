@@ -1,12 +1,18 @@
 class Solution {
     public int findNumbers(int[] nums) 
     {
-        int ans = 0;
-        for (int v : nums) {
-            if (String.valueOf(v).length() % 2 == 0) {
-                ++ans;
+        int count = 0;
+        int size;
+        for(int x : nums) {
+            size = 0;
+            while(x > 0) {
+                size++;
+                x /= 10;
+            }
+            if(size % 2 == 0) {
+                count++;
             }
         }
-        return ans;
+        return count;
     }
 }
