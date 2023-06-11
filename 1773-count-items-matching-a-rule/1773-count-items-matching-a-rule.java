@@ -1,24 +1,13 @@
 class Solution {
     public int countMatches(List<List<String>> items, String ruleKey, String ruleValue) 
     {
-        int count=0;
-        int i;
-        int n=items.size();
-        for(i=0;i<n;i++)
-        {
-            if(ruleKey.equals("type") && items.get(i).get(0).equals(ruleValue))
-            {
-                count++;
-            }
-            else if(ruleKey.equals("color") && items.get(i).get(1).equals(ruleValue))
-            {
-                count++;
-            }
-            else if(ruleKey.equals("name") && items.get(i).get(2).equals(ruleValue))
-            {
-                count++;
+        int i = ruleKey.charAt(0) == 't' ? 0 : (ruleKey.charAt(0) == 'c' ? 1 : 2);
+        int ans = 0;
+        for (var v : items) {
+            if (v.get(i).equals(ruleValue)) {
+                ++ans;
             }
         }
-        return count;
+        return ans;
     }
 }
