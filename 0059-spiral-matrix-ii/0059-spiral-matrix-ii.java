@@ -15,22 +15,16 @@ class Solution {
                 ans[j][right]=num++;
             }
             right--;
-            if(top<=bottom)
+            for(j=right;j>=left;j--)
             {
-                for(j=right;j>=left;j--)
-                {
-                    ans[bottom][j]=num++;
-                }
-                bottom--;
+                ans[bottom][j]=num++;
             }
-            if(left<=right)
+            bottom--;
+            for(j=bottom;j>=top;j--)
             {
-                for(j=bottom;j>=top;j--)
-                {
-                    ans[j][left]=num++;
-                }   
-                left++;
-            }
+                ans[j][left]=num++;
+            }   
+            left++;
         }
         return ans;
     }
