@@ -1,31 +1,22 @@
 class Solution {
     public int[][] generateMatrix(int n) {
-        int ans[][]=new int[n][n];
-        int j,num=1;
-        int top=0,bottom=n-1,left=0,right=n-1;
-        for(;num<=n*n;)
-        {
-            for(j=left;j<=right;j++)
-            {
-                ans[top][j]=num++;
-            }
-            top++;
-            for(j=top;j<=bottom;j++)
-            {
-                ans[j][right]=num++;
-            }
-            right--;
-            for(j=right;j>=left;j--)
-            {
-                ans[bottom][j]=num++;
-            }
-            bottom--;
-            for(j=bottom;j>=top;j--)
-            {
-                ans[j][left]=num++;
-            }   
-            left++;
+        int[][] result = new int[n][n];
+        int cnt = 1;
+        int dir[][] = {{0, 1}, {1, 0}, {0, -1}, {-1, 0}};
+        int d = 0;
+        int row = 0;
+        int col = 0;
+        while (cnt <= n * n) {
+            result[row][col] = cnt++;
+            int r = Math.floorMod(row + dir[d][0], n);
+            int c = Math.floorMod(col + dir[d][1], n);
+
+            // change direction if next cell is non zero
+            if (result[r][c] != 0) d = (d + 1) % 4;
+
+            row += dir[d][0];
+            col += dir[d][1];
         }
-        return ans;
+        return result;
     }
 }
