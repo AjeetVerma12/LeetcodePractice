@@ -1,25 +1,46 @@
-class Solution 
-{
-    public String longestPalindrome(String s) 
-    {
-        int n = s.length();
-        boolean[][] f = new boolean[n][n];
-        for (var g : f) {
-            Arrays.fill(g, true);
+class Solution {
+    public String longestPalindrome(String s) {
+        StringBuilder sPrime = new StringBuilder("#");
+        for (char c: s.toCharArray()) {
+            sPrime.append(c).append("#");
         }
-        int k = 0, mx = 1;
-        for (int i = n - 2; i >= 0; --i) {
-            for (int j = i + 1; j < n; ++j) {
-                f[i][j] = false;
-                if (s.charAt(i) == s.charAt(j)) {
-                    f[i][j] = f[i + 1][j - 1];
-                    if (f[i][j] && mx < j - i + 1) {
-                        mx = j - i + 1;
-                        k = i;
-                    }
-                }
+        
+        int n = sPrime.length();
+        int[] palindromeRadii = new int[n];
+        int center = 0;
+        int radius = 0;
+        
+        for (int i = 0; i < n; i++) {
+            int mirror = 2 * center - i;
+            
+            if (i < radius) {
+                palindromeRadii[i] = Math.min(radius - i, palindromeRadii[mirror]);
+            }
+            
+            while (i + 1 + palindromeRadii[i] < n &&
+                   i - 1 - palindromeRadii[i] >= 0 &&
+                   sPrime.charAt(i + 1 + palindromeRadii[i]) == sPrime.charAt(i - 1 - palindromeRadii[i])) {
+                palindromeRadii[i]++;
+            }
+            
+            if (i + palindromeRadii[i] > radius) {
+                center = i;
+                radius = i + palindromeRadii[i];
             }
         }
-        return s.substring(k, k + mx);
+        
+        int maxLength = 0;
+        int centerIndex = 0;
+        for (int i = 0; i < n; i++) {
+            if (palindromeRadii[i] > maxLength) {
+                maxLength = palindromeRadii[i];
+                centerIndex = i;
+            }
+        }
+        
+        int startIndex = (centerIndex - maxLength) / 2;
+        String longestPalindrome = s.substring(startIndex, startIndex + maxLength);
+        
+        return longestPalindrome;
     }
 }
