@@ -2,8 +2,8 @@ class Solution {
     public boolean isIsomorphic(String s, String t) 
     {
         int n=s.length();
-        int s1[]=new int[256];
-        int s2[]=new int[256];
+        int s1[]=new int[129];
+        int s2[]=new int[129];
         int i;
         char ch1,ch2;
         for(i=0;i<n;i++)
