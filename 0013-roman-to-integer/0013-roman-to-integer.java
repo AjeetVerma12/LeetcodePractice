@@ -1,24 +1,18 @@
 class Solution {
     public int romanToInt(String s)
     {
-        String samp="IVXLCDM";
-        int ar[]={1,5,10,50,100,500,1000};
-        int i,ans=0;
-        int n=s.length();
-        char ch;
-        for(i=0;i<n-1;i++)
-        {
-            ch=s.charAt(i);
-            if(samp.indexOf(ch)<samp.indexOf(s.charAt(i+1)))
-            {
-                ans-=ar[samp.indexOf(ch)];
-            }
-            else
-            {
-                ans+=ar[samp.indexOf(ch)];
-            }
+        String cs = "IVXLCDM";
+        int[] vs = {1, 5, 10, 50, 100, 500, 1000};
+        Map<Character, Integer> d = new HashMap<>();
+        for (int i = 0; i < vs.length; ++i) {
+            d.put(cs.charAt(i), vs[i]);
         }
-        ans+=ar[samp.indexOf(s.charAt(n-1))];
+        int n = s.length();
+        int ans = d.get(s.charAt(n - 1));
+        for (int i = 0; i < n - 1; ++i) {
+            int sign = d.get(s.charAt(i)) < d.get(s.charAt(i + 1)) ? -1 : 1;
+            ans += sign * d.get(s.charAt(i));
+        }
         return ans;
     }
 }
