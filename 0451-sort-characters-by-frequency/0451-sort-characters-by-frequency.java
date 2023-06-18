@@ -1,41 +1,18 @@
 class Solution {
     public String frequencySort(String s) 
     {
-        int ar[][]=new int[123][2];
-        int n=s.length();
-        int i,j,temp;
-        
-        for(i=0;i<n;i++)
-        {
-            ar[s.charAt(i)][0]=s.charAt(i);
-            ar[s.charAt(i)][1]++;
+        Map<Character, Integer> cnt = new HashMap<>(52);
+        for (int i = 0; i < s.length(); ++i) {
+            cnt.merge(s.charAt(i), 1, Integer::sum);
         }
-        
-        for(i=0;i<ar.length-1;i++)
-        {
-            for(j=0;j<ar.length-i-1;j++)
-            {
-                if(ar[j][1]<ar[j+1][1])
-                {
-                    temp=ar[j][1];
-                    ar[j][1]=ar[j+1][1];
-                    ar[j+1][1]=temp;
-                    
-                    temp=ar[j][0];
-                    ar[j][0]=ar[j+1][0];
-                    ar[j+1][0]=temp;
-                }
+        List<Character> cs = new ArrayList<>(cnt.keySet());
+        cs.sort((a, b) -> cnt.get(b) - cnt.get(a));
+        StringBuilder ans = new StringBuilder();
+        for (char c : cs) {
+            for (int v = cnt.get(c); v > 0; --v) {
+                ans.append(c);
             }
         }
-        String count="";
-        String ans="";
-        for(i=0;i<ar.length && ar[i][1]>0;i++)
-        {
-            for(j=0;j<ar[i][1];j++)
-            {
-                ans=ans+(char)ar[i][0];
-            }
-        }
-        return ans;
+        return ans.toString();
     }
 }
