@@ -1,38 +1,28 @@
 class Solution {
-    public int minDays(int[] bloomDay, int m, int k) 
-    {
-        int n=bloomDay.length;
-        if((long)m*k>(long)bloomDay.length)
-        {
+    public int minDays(int[] bloomDay, int m, int k) {
+        if ((long)m * k > (long)bloomDay.length) {
             return -1;
         }
-        int i,min=Integer.MAX_VALUE,max=Integer.MIN_VALUE;
-        for(i=0;i<n;i++)
-        {
-            min=Math.min(min,bloomDay[i]);
-            max=Math.max(max,bloomDay[i]);
+        int min = Integer.MAX_VALUE, max = Integer.MIN_VALUE;
+        for (int bd : bloomDay) {
+            min = Math.min(min, bd);
+            max = Math.max(max, bd);
         }
-        int mid;
-        for(;min<max;)
-        {
-            mid=(min+max)>>>1;
-            if(check(bloomDay,m,k,mid))
-            {
-                max=mid;
-            }
-            else
-            {
-                min=mid+1;
+        int left = min, right = max;
+        while (left < right) {
+            int mid = (left + right) >>> 1;
+            if (check(bloomDay, m, k, mid)) {
+                right = mid;
+            } else {
+                left = mid + 1;
             }
         }
-        return min;
+        return left;
     }
-    
-    public boolean check(int[] bloomDay, int m, int k, int day)
-    {
+
+    private boolean check(int[] bloomDay, int m, int k, int day) {
         int cnt = 0, cur = 0;
-        for (int bd : bloomDay) 
-        {
+        for (int bd : bloomDay) {
             cur = bd <= day ? cur + 1 : 0;
             if (cur == k) {
                 cnt++;
@@ -40,6 +30,5 @@ class Solution {
             }
         }
         return cnt >= m;
-
     }
 }
