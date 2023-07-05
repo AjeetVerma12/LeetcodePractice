@@ -1,22 +1,22 @@
 class Solution {
     public int longestSubarray(int[] nums) {
-        // Number of zero's in the window.
-        int zeroCount = 0;
-        int longestWindow = 0;
-        // Left end of the window.
-        int start = 0;       
-        for (int i = 0; i < nums.length; i++) 
-        {
-            zeroCount += (nums[i] == 0 ? 1 : 0);
-            while (zeroCount>1) 
-            {
-                zeroCount -= (nums[start] == 0 ? 1 : 0);
-                start++;
+        int n = nums.length;
+        int[] left = new int[n];
+        int[] right = new int[n];
+        for (int i = 1; i < n; ++i) {
+            if (nums[i - 1] == 1) {
+                left[i] = left[i - 1] + 1;
             }
-              
-            longestWindow = Math.max(longestWindow, i - start);
         }
-
-        return longestWindow;
+        for (int i = n - 2; i >= 0; --i) {
+            if (nums[i + 1] == 1) {
+                right[i] = right[i + 1] + 1;
+            }
+        }
+        int ans = 0;
+        for (int i = 0; i < n; ++i) {
+            ans = Math.max(ans, left[i] + right[i]);
+        }
+        return ans;
     }
 }
