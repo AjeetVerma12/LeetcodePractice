@@ -11,21 +11,11 @@
 class Solution {
     public int getDecimalValue(ListNode head) 
     {
-        ListNode temp=head;
-        int size=0;
-        for(;temp!=null;)
-        {
-            size++;
-            temp=temp.next;
+        int num = head.val;
+        while (head.next != null) {
+            num = num * 2 + head.next.val;
+            head = head.next;    
         }
-        size--;
-        int decimal=0;
-        temp=head;
-        for(;size>=0;)
-        {
-            decimal+=(Math.pow(2,size--)*temp.val);
-            temp=temp.next;
-        }
-        return decimal;
+        return num;
     }
 }
