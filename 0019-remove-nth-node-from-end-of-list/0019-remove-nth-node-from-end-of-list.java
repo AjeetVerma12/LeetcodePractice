@@ -11,10 +11,6 @@
 class Solution {
     public ListNode removeNthFromEnd(ListNode head, int n) 
     {
-        if(head.next==null)
-        {
-            return head.next;
-        }
         ListNode temp=head;
         int size=0;
         while(temp!=null)
