@@ -6,7 +6,12 @@ class Solution {
         if (s.charAt(i) == '+' || s.charAt(i) == '-') {
             ++i;
         }
+        
         if (i == n) {
+            return false;
+        }
+        if(s.charAt(i)=='e'||s.charAt(i)=='E')
+        {
             return false;
         }
         if (s.charAt(i) == '.'
@@ -26,7 +31,7 @@ class Solution {
             } 
             else if (s.charAt(j) == 'e' || s.charAt(j) == 'E') 
             {
-                if (e > 0 || j == i || j == n - 1) 
+                if (e > 0 || j == n - 1) 
                 {
                     return false;
                 }
