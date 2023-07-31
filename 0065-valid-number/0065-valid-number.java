@@ -19,9 +19,9 @@ class Solution {
             return false;
         }
         int dot = 0, e = 0;
-        for (int j = i; j < n; ++j) 
+        for (; i < n; ++i) 
         {
-            if (s.charAt(j) == '.') 
+            if (s.charAt(i) == '.') 
             {
                 if (e > 0 || dot > 0) 
                 {
@@ -29,22 +29,22 @@ class Solution {
                 }
                 ++dot;
             } 
-            else if (s.charAt(j) == 'e' || s.charAt(j) == 'E') 
+            else if (s.charAt(i) == 'e' || s.charAt(i) == 'E') 
             {
-                if (e > 0 || j == n - 1) 
+                if (e > 0 || i == n - 1) 
                 {
                     return false;
                 }
                 ++e;
-                if (s.charAt(j + 1) == '+' || s.charAt(j + 1) == '-') 
+                if (s.charAt(i + 1) == '+' || s.charAt(i + 1) == '-') 
                 {
-                    if (++j == n - 1) 
+                    if (++i == n - 1) 
                     {
                         return false;
                     }
                 }
             } 
-            else if (s.charAt(j) < '0' || s.charAt(j) > '9') 
+            else if (s.charAt(i) < '0' || s.charAt(i) > '9') 
             {
                 return false;
             }
