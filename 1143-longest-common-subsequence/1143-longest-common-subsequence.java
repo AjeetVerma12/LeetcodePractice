@@ -20,21 +20,37 @@ class Solution {
     
     public int longestCommonSubsequence(String text1, String text2) 
     {
-        int m = text1.length(), n = text2.length();
-        int[][] dp = new int[m + 1][n + 1];
+        // int m = text1.length(), n = text2.length();
+        // int[][] dp = new int[m + 1][n + 1];
         // for(int ar[]:dp)
         // {
         //     Arrays.fill(ar,-1);
         // }
-        for (int i = 1; i <= m; ++i) {
-            for (int j = 1; j <= n; ++j) {
-                if (text1.charAt(i - 1) == text2.charAt(j - 1)) {
-                    dp[i][j] = dp[i - 1][j - 1] + 1;
-                } else {
-                    dp[i][j] = Math.max(dp[i - 1][j], dp[i][j - 1]);
-                }
+        // for (int i = 1; i <= m; ++i) {
+        //     for (int j = 1; j <= n; ++j) {
+        //         if (text1.charAt(i - 1) == text2.charAt(j - 1)) {
+        //             dp[i][j] = dp[i - 1][j - 1] + 1;
+        //         } else {
+        //             dp[i][j] = Math.max(dp[i - 1][j], dp[i][j - 1]);
+        //         }
+        //     }
+        // }
+        // return dp[m][n];
+        int n=text1.length();
+        int m=text2.length();
+    
+    // Base Case is covered as we have initialized the prev and cur to 0.
+        int prev[]=new int[m+1];
+        int cur[]=new int[m+1];
+        for(int ind1=1;ind1<=n;ind1++){
+            for(int ind2=1;ind2<=m;ind2++){
+                if(text1.charAt(ind1-1)==text2.charAt(ind2-1))
+                    cur[ind2] = 1 + prev[ind2-1];
+                else
+                    cur[ind2] = 0 + Math.max(prev[ind2],cur[ind2-1]);
             }
+            prev=(int[])(cur.clone());
         }
-        return dp[m][n];
+        return prev[m];
     }
 }
