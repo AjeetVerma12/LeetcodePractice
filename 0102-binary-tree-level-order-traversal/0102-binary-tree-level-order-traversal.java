@@ -22,19 +22,25 @@ class Solution {
         }
         Deque<TreeNode> deq = new ArrayDeque<>();
         deq.offer(root);
-        while (!deq.isEmpty()) {
-            List<Integer> t = new ArrayList<>();
-            for (int n = deq.size(); n > 0; --n) {
-                TreeNode node = deq.poll();
-                t.add(node.val);
-                if (node.left != null) {
-                    deq.offer(node.left);
+        int i;
+        while(!deq.isEmpty())
+        {
+            int size=deq.size();
+            List<Integer> temp = new ArrayList<>();
+            for(i=0;i<size;i++)
+            {
+                if(deq.peek().left!=null)
+                {
+                    deq.offer(deq.peek().left);
                 }
-                if (node.right != null) {
-                    deq.offer(node.right);
+                if(deq.peek().right!=null)
+                {
+                    deq.offer(deq.peek().right);
                 }
+                temp.add(deq.peek().val);
+                deq.poll();
             }
-            ans.add(t);
+            ans.add(temp);
         }
         return ans;
     }
