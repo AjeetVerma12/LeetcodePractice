@@ -21,17 +21,26 @@ class Solution {
         //     temp=curr;
         // }
         // return ans.next;
-        ListNode ans=new ListNode();
-        ListNode prev=head;
-        //ListNode curr=prev.next;
-        while(prev!=null)
+        // ListNode ans=new ListNode();
+        // ListNode prev=head;
+        // ListNode curr=prev.next;
+        // while(prev!=null)
+        // {
+        //     ListNode curr=prev.next;
+        //     prev.next=ans.next;
+        //     ans.next=prev;
+        //     prev=curr;
+        // }
+        // return ans.next;
+        ListNode newHead=null;
+        while(head!=null)
         {
-            ListNode curr=prev.next;
-            prev.next=ans.next;
-            ans.next=prev;
-            prev=curr;
+            ListNode next=head.next;
+            head.next=newHead;
+            newHead=head;
+            head=next;
         }
-        return ans.next;
+        return newHead;
     }
     
 }
