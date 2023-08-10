@@ -19,35 +19,36 @@ class Solution {
         if (root == null) {
             return ans;
         }
-        Queue<TreeNode> queue = new LinkedList<TreeNode>();
-        queue.offer(root);
-        boolean ltf=true;
-        while(!queue.isEmpty())
+        Deque<TreeNode> deq=new ArrayDeque<>();
+        deq.offer(root);
+        boolean rtf=false;
+        int i;
+        while(!deq.isEmpty())
         {
-            int l=queue.size();
-            List<Integer> temp=new ArrayList<Integer>(l);
-            for(int i=0;i<l;i++)
+            int size=deq.size();
+            List<Integer> temp=new ArrayList<>();
+            for(i=0;i<size;i++)
             {
-                int index=i;
-                if(queue.peek().left!=null)
+                if(deq.peek().left!=null)
                 {
-                    queue.offer(queue.peek().left);
+                    deq.offer(deq.peek().left);
                 }
-                if(queue.peek().right!=null)
+                if(deq.peek().right!=null)
                 {
-                    queue.offer(queue.peek().right);
+                    deq.offer(deq.peek().right);
                 }
-                if(ltf)
+                if(rtf)
                 {
-                    temp.add(queue.poll().val);
+                    temp.add(0,deq.peek().val);
                 }
                 else
                 {
-                    temp.add(0,queue.poll().val);
+                    temp.add(deq.peek().val);
                 }
+                deq.poll();
             }
-            ltf=!ltf;
             ans.add(temp);
+            rtf=!rtf;
         }
         return ans;
     }
