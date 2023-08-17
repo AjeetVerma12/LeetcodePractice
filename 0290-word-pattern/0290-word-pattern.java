@@ -1,46 +1,19 @@
 class Solution {
     public boolean wordPattern(String pattern, String s) {
-        int n=pattern.length();
         String[] ws = s.split(" ");
-        if(pattern.length() != ws.length)
-        {
+        if (pattern.length() != ws.length) {
             return false;
         }
-        HashMap<Character,String> charMap=new HashMap<>();
-        HashMap<String,Character> stringMap=new HashMap<>();
-        int i;
-        for(i=0;i<n;i++)
-        {
-            if(charMap.containsKey(pattern.charAt(i)))
-            {
-                if(!stringMap.containsKey(ws[i]))
-                {
-                    return false;
-                }
-                else
-                {
-                    if(stringMap.get(ws[i])!=pattern.charAt(i))
-                    {
-                        return false;
-                    }
-                }
+        Map<Character, String> d1 = new HashMap<>();
+        Map<String, Character> d2 = new HashMap<>();
+        for (int i = 0; i < ws.length; ++i) {
+            char a = pattern.charAt(i);
+            String b = ws[i];
+            if (!d1.getOrDefault(a, b).equals(b) || d2.getOrDefault(b, a) != a) {
+                return false;
             }
-            if(stringMap.containsKey(ws[i]))
-            {
-                if(!charMap.containsKey(pattern.charAt(i)))
-                {
-                    return false;
-                }
-                else
-                {
-                    if(!charMap.get(pattern.charAt(i)).equals(ws[i]))
-                    {
-                        return false;
-                    }
-                }
-            }
-            charMap.put(pattern.charAt(i),ws[i]);
-            stringMap.put(ws[i],pattern.charAt(i));
+            d1.put(a, b);
+            d2.put(b, a);
         }
         return true;
     }
