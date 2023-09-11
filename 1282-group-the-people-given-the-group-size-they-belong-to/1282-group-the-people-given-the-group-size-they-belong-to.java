@@ -1,16 +1,21 @@
 class Solution {
-    public List<List<Integer>> groupThePeople(int[] groupSizes) {
-        int n = groupSizes.length;
-        List<Integer>[] g = new List[n + 1];
-        Arrays.setAll(g, k -> new ArrayList<>());
-        for (int i = 0; i < n; ++i) {
-            g[groupSizes[i]].add(i);
-        }
+    public List<List<Integer>> groupThePeople(int[] groupSizes) 
+    {
         List<List<Integer>> ans = new ArrayList<>();
-        for (int i = 0; i < g.length; ++i) {
-            List<Integer> v = g[i];
-            for (int j = 0; j < v.size(); j += i) {
-                ans.add(v.subList(j, j + i));
+        Map<Integer, List<Integer>> map = new HashMap<>();
+        for (int i=0;i<groupSizes.length;i++) 
+        {
+            if (!map.containsKey(groupSizes[i])) 
+            {
+                map.put(groupSizes[i],new ArrayList<>());
+            }
+            
+            List<Integer> group=map.get(groupSizes[i]);
+            group.add(i);
+            if (group.size()==groupSizes[i]) 
+            {
+                ans.add(group);
+                map.remove(groupSizes[i]);
             }
         }
         return ans;
