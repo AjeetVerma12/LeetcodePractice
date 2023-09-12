@@ -6,7 +6,8 @@ class Solution {
             cnt[s.charAt(i)-'a']++;
         }
         Arrays.sort(cnt);
-        int ans = 0, pre=1<<30;
+        int ans = 0, pre=1<<17;
+        System.out.print(pre);
         for (int i=25;i>=0;--i) {
             int v=cnt[i];
             if (pre==0) 
