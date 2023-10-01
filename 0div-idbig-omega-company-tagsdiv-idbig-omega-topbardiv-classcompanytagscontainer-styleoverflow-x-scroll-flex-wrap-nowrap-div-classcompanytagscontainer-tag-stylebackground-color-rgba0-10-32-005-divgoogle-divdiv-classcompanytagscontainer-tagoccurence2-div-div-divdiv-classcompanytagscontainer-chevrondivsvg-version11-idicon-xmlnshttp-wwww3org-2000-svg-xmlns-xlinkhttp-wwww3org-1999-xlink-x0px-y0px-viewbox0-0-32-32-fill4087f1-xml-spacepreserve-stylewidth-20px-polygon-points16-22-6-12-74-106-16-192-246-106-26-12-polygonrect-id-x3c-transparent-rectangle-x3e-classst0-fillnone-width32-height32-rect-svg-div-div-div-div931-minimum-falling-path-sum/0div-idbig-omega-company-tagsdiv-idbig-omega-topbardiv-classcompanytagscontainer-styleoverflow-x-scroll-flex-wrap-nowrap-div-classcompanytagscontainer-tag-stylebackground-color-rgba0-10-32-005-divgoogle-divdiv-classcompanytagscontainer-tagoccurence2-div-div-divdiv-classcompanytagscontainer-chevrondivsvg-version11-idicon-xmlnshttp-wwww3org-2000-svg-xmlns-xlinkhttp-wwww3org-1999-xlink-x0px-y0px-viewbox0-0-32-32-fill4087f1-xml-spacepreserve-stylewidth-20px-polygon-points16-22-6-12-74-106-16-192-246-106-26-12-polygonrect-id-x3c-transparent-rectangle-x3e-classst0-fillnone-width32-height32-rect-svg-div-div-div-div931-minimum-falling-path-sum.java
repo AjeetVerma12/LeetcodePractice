@@ -19,9 +19,9 @@ class Solution {
     // }
     
     public int minFallingPathSum(int[][] matrix) {
-        int n=matrix.length;
+        // int n=matrix.length;
         // int[][] dp=new int[n][n];
-        int[] dp=new int[n];
+        // int[] dp=new int[n];
         // for(int row[]:dp) {
         //     Arrays.fill(row,-1);
         // }
@@ -32,37 +32,59 @@ class Solution {
         // }
         // return max;
         
-        int i,j;
-        for(i=0;i<n;i++) {
-            // dp[0][i]=matrix[0][i];
-            dp[i]=matrix[0][i];
-        }
-        for(i=1;i<n;i++) {
-            int[] temp=new int[n];
-            for(j=0;j<n;j++) {
-                int up=matrix[i][j]+dp[j];
-                int upLeft=matrix[i][j];
-                if(j>0) {
-                    upLeft+=dp[j-1];
+        // int i,j;
+        // for(i=0;i<n;i++) {
+        //     // dp[0][i]=matrix[0][i];
+        //     dp[i]=matrix[0][i];
+        // }
+        // for(i=1;i<n;i++) {
+        //     int[] temp=new int[n];
+        //     for(j=0;j<n;j++) {
+        //         int up=matrix[i][j]+dp[j];
+        //         int upLeft=matrix[i][j];
+        //         if(j>0) {
+        //             upLeft+=dp[j-1];
+        //         }
+        //         else {
+        //             upLeft+=(int)Math.pow(10,9);
+        //         }
+        //         int upRight=matrix[i][j];
+        //         if(j<n-1) {
+        //             upRight+=dp[j+1];
+        //         }
+        //         else {
+        //             upRight+=(int)Math.pow(10,9);
+        //         }
+        //         temp[j]=Math.min(up,Math.min(upRight,upLeft));
+        //     }
+        //     dp=temp;
+        // }
+        // int min=Integer.MAX_VALUE;
+        // for(i=0;i<n;i++) {
+        //     min=Math.min(min,dp[i]);
+        // }
+        // return min;
+        
+        int n = matrix.length;
+        var f = new int[n];
+        for (var row : matrix) {
+            var g = f.clone();
+            for (int j = 0; j < n; ++j) {
+                if (j > 0) {
+                    g[j] = Math.min(g[j], f[j - 1]);
                 }
-                else {
-                    upLeft+=(int)Math.pow(10,9);
+                if (j + 1 < n) {
+                    g[j] = Math.min(g[j], f[j + 1]);
                 }
-                int upRight=matrix[i][j];
-                if(j<n-1) {
-                    upRight+=dp[j+1];
-                }
-                else {
-                    upRight+=(int)Math.pow(10,9);
-                }
-                temp[j]=Math.min(up,Math.min(upRight,upLeft));
+                g[j] += row[j];
             }
-            dp=temp;
+            f = g;
         }
-        int min=Integer.MAX_VALUE;
-        for(i=0;i<n;i++) {
-            min=Math.min(min,dp[i]);
+        // return Arrays.stream(f).min().getAsInt();
+        int ans = 1 << 30;
+        for (int x : f) {
+            ans = Math.min(ans, x);
         }
-        return min;
+        return ans;
     }
 }
