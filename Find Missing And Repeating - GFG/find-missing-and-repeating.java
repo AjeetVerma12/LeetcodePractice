@@ -27,29 +27,30 @@ class GFG {
 // } Driver Code Ends
 
 
+
+
 // User function Template for Java
 
 class Solve {
-    int[] findTwoElement(int arr[], int size) {
+    int[] findTwoElement(int arr[], int n) {
         // code here
-        int i;
         int ar[]=new int[2];
-        // System.out.print("The repeating element is ");
- 
-        for (i = 0; i < size; i++) {
-            int abs_val = Math.abs(arr[i]);
-            if (arr[abs_val - 1] > 0)
-                arr[abs_val - 1] = -arr[abs_val - 1];
-            else
-                // System.out.println(abs_val);
-                ar[0]=abs_val;
+        int i;
+        for(i=0;i<n;i++) {
+            int val=Math.abs(arr[i]);
+            if(arr[val-1]>0) {
+                arr[val-1]=-arr[val-1];
+            }
+            else {
+                ar[0]=val;
+                // break;
+            }
         }
- 
-        // System.out.print("and the missing element is ");
-        for (i = 0; i < size; i++) {
-            if (arr[i] > 0)
-                // System.out.println(i + 1);
-                ar[1]=(i+1);
+        for(i=0;i<n;i++) {
+            if(arr[i]>0) {
+                ar[1]=i+1;
+                // break;
+            }
         }
         return ar;
     }
